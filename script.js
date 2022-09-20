@@ -17,11 +17,13 @@ const messageEl = document.querySelector('.message');
 const numberEl = document.querySelector('.number');
 const scoreEl = document.querySelector('.score');
 const againBtn = document.querySelector('.again');
+const highScoreEl = document.querySelector('.highscore');
 
 // Defining the Secret Number and Score
 
 let secretNumber = Math.trunc(Math.random() * 20 + 1);
 let score = 20;
+let highScore = 0;
 
 //  Making the Game reset Button Work
 
@@ -53,6 +55,11 @@ document.querySelector('.check').addEventListener('click', function () {
     numberEl.textContent = secretNumber;
     document.body.style.backgroundColor = '#60dd47';
     document.querySelector('.number').style.width = '30rem';
+
+    if (score > highScore) {
+      highScore = score;
+      highScoreEl.textContent = highScore;
+    }
   }
   // Check for High Condition
   else if (guess > secretNumber) {
