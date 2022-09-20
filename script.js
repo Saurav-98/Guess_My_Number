@@ -13,13 +13,19 @@ const highScoreEl = document.querySelector('.highscore');
 
 let secretNumber = Math.trunc(Math.random() * 100 + 1);
 let score = 25;
-let highScore = 0;
+let highScore;
+if (localStorage.getItem('highScore')) {
+  highScore = localStorage.getItem('highScore');
+} else {
+  highScore = 0;
+}
 
+highScoreEl.textContent = highScore;
 // setting a display Message function
 
-const displayMessage(message){
+const displayMessage = message => {
   messageEl.textContent = message;
-}
+};
 
 //  Making the Game reset Button Work
 
@@ -34,8 +40,6 @@ againBtn.addEventListener('click', function () {
   document.body.style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
 });
-
-
 
 // Checking the Guess Value
 
@@ -60,6 +64,7 @@ document.querySelector('.check').addEventListener('click', function () {
     if (score > highScore) {
       highScore = score;
       highScoreEl.textContent = highScore;
+      localStorage.setItem('highScore', highScore);
     }
   }
   // Check for High and Low Condition
@@ -67,7 +72,9 @@ document.querySelector('.check').addEventListener('click', function () {
     if (score > 0) {
       // messageEl.textContent =
       //   guess > secretNumber ? '📈 Umm... Too High' : '📉 Hmmm... Too Low';
-      displayMessage(guess > secretNumber ? '📈 Umm... Too High' : '📉 Hmmm... Too Low')
+      displayMessage(
+        guess > secretNumber ? '📈 Umm... Too High' : '📉 Hmmm... Too Low'
+      );
       score--;
       scoreEl.textContent = score;
     } else {
