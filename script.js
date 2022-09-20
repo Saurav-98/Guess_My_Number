@@ -58,7 +58,7 @@ document.querySelector('.check').addEventListener('click', function () {
     // messageEl.textContent = 'Hurray! 🥳 Correct Number!';
     displayMessage('Hurray! 🥳 Correct Number!');
     numberEl.textContent = secretNumber;
-    document.body.style.backgroundColor = '#60dd47';
+    document.body.style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
 
     if (score > highScore) {
