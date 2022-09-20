@@ -1,15 +1,5 @@
 'use strict';
 
-// console.log(document.querySelector('.message').textContent);
-// document.querySelector('.message').textContent = '🎊🥳  Correct Number! ';
-// console.log(document.querySelector('.message').textContent);
-
-// document.querySelector('.number').textContent = 13;
-// document.querySelector('.score').textContent = 40;
-
-// document.querySelector('.guess').value = 23;
-// console.log(document.querySelector('.guess').value);
-
 // Saving all the HTML Elements being Manipulated
 
 const guessEl = document.querySelector('.guess');
@@ -21,22 +11,31 @@ const highScoreEl = document.querySelector('.highscore');
 
 // Defining the Secret Number and Score
 
-let secretNumber = Math.trunc(Math.random() * 20 + 1);
-let score = 20;
+let secretNumber = Math.trunc(Math.random() * 100 + 1);
+let score = 25;
 let highScore = 0;
+
+// setting a display Message function
+
+const displayMessage(message){
+  messageEl.textContent = message;
+}
 
 //  Making the Game reset Button Work
 
 againBtn.addEventListener('click', function () {
   secretNumber = Math.trunc(Math.random() * 20 + 1);
   score = 20;
-  messageEl.textContent = 'Start guessing...';
-  scoreEl.textContent = '20';
+  // messageEl.textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
+  scoreEl.textContent = 25;
   guessEl.value = '';
   numberEl.textContent = '?';
   document.body.style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
 });
+
+
 
 // Checking the Guess Value
 
@@ -46,12 +45,14 @@ document.querySelector('.check').addEventListener('click', function () {
 
   // Check for Invalid / missing input
   if (!guess) {
-    messageEl.textContent = '🚫 No Number';
+    // messageEl.textContent = '🚫 No Number entered';
+    displayMessage('🚫 No Number entered');
   }
 
   // Check for Win Condition
   else if (guess === secretNumber) {
-    messageEl.textContent = '🎊🥳  Correct Number!';
+    // messageEl.textContent = 'Hurray! 🥳 Correct Number!';
+    displayMessage('Hurray! 🥳 Correct Number!');
     numberEl.textContent = secretNumber;
     document.body.style.backgroundColor = '#60dd47';
     document.querySelector('.number').style.width = '30rem';
@@ -61,25 +62,17 @@ document.querySelector('.check').addEventListener('click', function () {
       highScoreEl.textContent = highScore;
     }
   }
-  // Check for High Condition
-  else if (guess > secretNumber) {
+  // Check for High and Low Condition
+  else if (guess !== secretNumber) {
     if (score > 0) {
-      messageEl.textContent = '📈 Umm... Too High';
+      // messageEl.textContent =
+      //   guess > secretNumber ? '📈 Umm... Too High' : '📉 Hmmm... Too Low';
+      displayMessage(guess > secretNumber ? '📈 Umm... Too High' : '📉 Hmmm... Too Low')
       score--;
       scoreEl.textContent = score;
     } else {
-      messageEl.textContent = '💀 Game Over!';
-      scoreEl.textContent = score;
-    }
-  }
-  // Check for High Condition
-  else if (guess < secretNumber) {
-    if (score > 0) {
-      messageEl.textContent = '📉 Hmmm... Too Low';
-      score--;
-      scoreEl.textContent = score;
-    } else {
-      messageEl.textContent = '💀 Game Over!';
+      // messageEl.textContent = '💀 Game Over!';
+      displayMessage('💀 Game Over!');
       scoreEl.textContent = score;
     }
   }
